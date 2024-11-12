@@ -5,6 +5,9 @@ import com.example.developedtodolist.entity.Schedule;
 import com.example.developedtodolist.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ScheduleService {
@@ -18,5 +21,9 @@ public class ScheduleService {
                 ,savedSchedule.getTitle()
                 ,savedSchedule.getContent()
                 );
+    }
+
+    public List<Schedule> findAll() {
+        return scheduleRepository.findAll();
     }
 }
