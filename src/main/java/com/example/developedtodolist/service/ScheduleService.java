@@ -41,6 +41,10 @@ public class ScheduleService {
     public void updateSchedule(Long id ,String username,String title,String content ) {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
         schedule.updateSchedule(username,title,content);
+    }
 
+    public void deleteSchedule(Long id) {
+        Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
+        scheduleRepository.delete(schedule);
     }
 }
