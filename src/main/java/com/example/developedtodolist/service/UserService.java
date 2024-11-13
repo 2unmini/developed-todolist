@@ -19,12 +19,22 @@ public class UserService {
         return new UserResponseDto(
                 savedUser.getUserId()
                 , savedUser.getUsername()
-                , savedUser.getEmail());
+                , savedUser.getEmail()
+        );
     }
 
     public List<UserResponseDto> findAll() {
         List<User> userList = userRepository.findAll();
         return userList.stream().map(UserResponseDto::toUserResponseDto).toList();
+
+    }
+
+    public UserResponseDto findById(Long id) {
+        User user = userRepository.findByIdOrElseThrow(id);
+        return new UserResponseDto(user.getUserId()
+                , user.getUsername()
+                , user.getEmail()
+        );
 
     }
 }
