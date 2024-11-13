@@ -1,5 +1,6 @@
 package com.example.developedtodolist.dto.user;
 
+import com.example.developedtodolist.entity.User;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,6 +18,10 @@ public class UserResponseDto {
         this.userId =userId;
         this.username = username;
         this.email = email;
+    }
+
+    public static UserResponseDto toUserResponseDto(User user) {
+        return new UserResponseDto(user.getUserId(), user.getUsername(),user.getEmail());
     }
 
 }

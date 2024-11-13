@@ -28,13 +28,13 @@ public class ScheduleService {
 
     public List<ScheduleResponseDto> findAll() {
         List<Schedule> scheduleList = scheduleRepository.findAll();
-        return scheduleList.stream().map(ScheduleResponseDto::toDto).toList();
+        return scheduleList.stream().map(ScheduleResponseDto::toScheduleResponseDto).toList();
 
     }
 
     public ScheduleResponseDto findById(Long id) {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
-        return ScheduleResponseDto.toDto(schedule);
+        return ScheduleResponseDto.toScheduleResponseDto(schedule);
 
     }
     @Transactional

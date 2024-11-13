@@ -20,7 +20,7 @@ public class ScheduleResponseDto {
         this.content=content;
     }
 
-    public static ScheduleResponseDto toDto(Schedule schedule) {
+    public static ScheduleResponseDto toScheduleResponseDto(Schedule schedule) {
         return new ScheduleResponseDto(schedule.getScheduleId(),schedule.getUserId(),schedule.getTitle(),schedule.getContent());
     }
 }

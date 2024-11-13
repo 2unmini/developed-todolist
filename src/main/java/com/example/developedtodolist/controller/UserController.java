@@ -3,13 +3,13 @@ package com.example.developedtodolist.controller;
 import com.example.developedtodolist.dto.user.UserRequestDto;
 import com.example.developedtodolist.dto.user.UserResponseDto;
 import com.example.developedtodolist.service.UserService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +22,13 @@ public class UserController {
         UserResponseDto savedUserResponseDto = userService.save(requestDto.getUsername(), requestDto.getEmail());
         return new ResponseEntity<>(savedUserResponseDto, HttpStatus.CREATED);
     }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserResponseDto>> findUserAll() {
+        List<UserResponseDto> userResponseDtoList = userService.findAll();
+        return new ResponseEntity<>(userResponseDtoList,HttpStatus.OK);
+    }
+
 
 
 }
