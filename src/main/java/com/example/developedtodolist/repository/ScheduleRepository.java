@@ -1,6 +1,5 @@
 package com.example.developedtodolist.repository;
 
-import com.example.developedtodolist.dto.scheduledto.ScheduleResponseDto;
 import com.example.developedtodolist.entity.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
