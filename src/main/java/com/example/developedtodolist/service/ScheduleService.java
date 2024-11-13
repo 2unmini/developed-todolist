@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -23,7 +25,15 @@ public class ScheduleService {
                 );
     }
 
-    public List<Schedule> findAll() {
-        return scheduleRepository.findAll();
+    public List<ScheduleResponseDto> findAll() {
+        List<Schedule> scheduleList = scheduleRepository.findAll();
+        return scheduleList.stream().map(ScheduleResponseDto::toDto).toList();
+
+    }
+
+    public ScheduleResponseDto findById(Long id) {
+        Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
+        return ScheduleResponseDto.toDto(schedule);
+
     }
 }

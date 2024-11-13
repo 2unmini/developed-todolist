@@ -1,5 +1,6 @@
 package com.example.developedtodolist.entity;
 
+import com.example.developedtodolist.dto.scheduledto.ScheduleResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -24,4 +25,5 @@ public class Schedule extends BaseEntity{
         this.title=title;
         this.content=content;
     }
+
 }
