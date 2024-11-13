@@ -10,8 +10,8 @@ public class Schedule extends BaseEntity{
     @Column(name = "schedule_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long scheduleId;
-    @Column(name = "user_name")
-    private  String username;
+    @Column(name = "user_id")
+    private  Long userId;
     private  String title;
     private  String content;
 
@@ -19,14 +19,14 @@ public class Schedule extends BaseEntity{
 
     }
 
-    public Schedule(String username, String title, String content) {
-        this.username=username;
+    public Schedule(Long userId, String title, String content) {
+        this.userId=userId;
         this.title=title;
         this.content=content;
     }
 
-    public void updateSchedule(String username, String title, String content) {
-        this.username=username;
+    public void updateSchedule(Long userId, String title, String content) {
+        this.userId=userId;
         this.title=title;
         this.content=content;
     }

@@ -15,12 +15,12 @@ import java.util.List;
 @Service
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
-    public ScheduleResponseDto savedSchedule(String username, String title, String content) {
-        Schedule schedule = new Schedule(username, title, content);
+    public ScheduleResponseDto savedSchedule(Long userId, String title, String content) {
+        Schedule schedule = new Schedule(userId, title, content);
         Schedule savedSchedule = scheduleRepository.save(schedule);
         return new ScheduleResponseDto(
                 savedSchedule.getScheduleId()
-                ,savedSchedule.getUsername()
+                ,savedSchedule.getUserId()
                 ,savedSchedule.getTitle()
                 ,savedSchedule.getContent()
                 );
@@ -38,9 +38,9 @@ public class ScheduleService {
 
     }
     @Transactional
-    public void updateSchedule(Long id ,String username,String title,String content ) {
+    public void updateSchedule(Long id ,Long userId,String title,String content ) {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
-        schedule.updateSchedule(username,title,content);
+        schedule.updateSchedule(userId,title,content);
     }
 
     public void deleteSchedule(Long id) {

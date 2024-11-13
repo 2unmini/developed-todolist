@@ -21,7 +21,7 @@ public class ScheduleController {
     @PostMapping("/schedules")
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
 
-        ScheduleResponseDto scheduleResponseDto = scheduleService.savedSchedule(requestDto.getUsername(), requestDto.getTitle(), requestDto.getContent());
+        ScheduleResponseDto scheduleResponseDto = scheduleService.savedSchedule(requestDto.getUserId(), requestDto.getTitle(), requestDto.getContent());
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
 
     }
@@ -38,7 +38,7 @@ public class ScheduleController {
     }
     @PutMapping("/schedules/{id}")
     public ResponseEntity<Void> updateSchedule(@PathVariable Long id,@RequestBody ScheduleRequestDto requestDto) {
-        scheduleService.updateSchedule(id,requestDto.getUsername(),requestDto.getContent(),requestDto.getContent());
+        scheduleService.updateSchedule(id,requestDto.getUserId(),requestDto.getContent(),requestDto.getContent());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
