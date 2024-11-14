@@ -1,5 +1,6 @@
 package com.example.developedtodolist.service;
 
+import com.example.developedtodolist.config.PasswordEncoder;
 import com.example.developedtodolist.dto.user.LoginUserRequestDto;
 import com.example.developedtodolist.dto.user.UserResponseDto;
 import com.example.developedtodolist.entity.User;
@@ -17,9 +18,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
 
     public UserResponseDto save(String username, String email, String password) {
-        User user = new User(username, email,password);
+        User user = new User(username, email,passwordEncoder.encode(password));
         User savedUser = userRepository.save(user);
         return new UserResponseDto(
                 savedUser.getUserId()
@@ -61,7 +64,7 @@ public class UserService {
 
     public boolean login(LoginUserRequestDto requestDto, HttpServletRequest request) {
         User user = userRepository.findUserByEmail(requestDto.getEmail());
-        if(user.getUserId()!=null&& user.getPassword().equals(requestDto.getPassword())) {
+        if(user.getUserId()!=null&& passwordEncoder.matches(requestDto.getPassword(),user.getPassword())){
             HttpSession session = request.getSession();
             session.setAttribute("loginUser",user.getUserId());
             return true;
