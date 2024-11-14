@@ -1,5 +1,6 @@
 package com.example.developedtodolist.service;
 
+import com.example.developedtodolist.dto.user.LoginUserRequestDto;
 import com.example.developedtodolist.dto.user.UserResponseDto;
 import com.example.developedtodolist.entity.User;
 import com.example.developedtodolist.repository.UserRepository;
@@ -46,15 +47,33 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public UserResponseDto login(String email, String password, HttpServletRequest request) {
-        Long userId = userRepository.findByEmailAndPassword(email, password);
+   /* public UserResponseDto login(String email, String password, HttpServletRequest request) {
+       *//* Long userId = userRepository.findByEmailAndPassword(email, password);
         if (userId!=null){
             HttpSession session = request.getSession();
             User loginUser = userRepository.findByIdOrElseThrow(userId);
             session.setAttribute("user_id", loginUser);
             return new UserResponseDto(userId,email,password);
         }
-
+*//*
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+    }*/
+
+    public boolean login(LoginUserRequestDto requestDto, HttpServletRequest request) {
+        User user = userRepository.findUserByEmail(requestDto.getEmail());
+        if(user.getUserId()!=null&& user.getPassword().equals(requestDto.getPassword())) {
+            HttpSession session = request.getSession();
+            session.setAttribute("loginUser",user.getUserId());
+            return true;
+
+        }
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+    }
+
+    public void logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if(session!=null) {
+            session.invalidate();
+        }
     }
 }

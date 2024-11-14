@@ -1,5 +1,6 @@
 package com.example.developedtodolist.controller;
 
+import com.example.developedtodolist.dto.user.LoginUserRequestDto;
 import com.example.developedtodolist.dto.user.UserRequestDto;
 import com.example.developedtodolist.dto.user.UserResponseDto;
 
@@ -39,6 +40,19 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         userService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody LoginUserRequestDto requestDto, HttpServletRequest request ) {
+        if(userService.login(requestDto,request)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletRequest request) {
+        userService.logout(request);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
