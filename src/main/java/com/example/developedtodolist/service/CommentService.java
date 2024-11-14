@@ -1,6 +1,7 @@
 package com.example.developedtodolist.service;
 
 import com.example.developedtodolist.dto.comment.CreateCommentResponseDto;
+import com.example.developedtodolist.dto.comment.ReadCommentResponseDto;
 import com.example.developedtodolist.entity.Comment;
 import com.example.developedtodolist.entity.Schedule;
 import com.example.developedtodolist.entity.User;
@@ -20,6 +21,18 @@ public class CommentService {
         User user = userRepository.findByIdOrElseThrow(userId);
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(scheduleId);
         Comment savedComment = commentRepository.save(new Comment(user,schedule,content));
-        return new CreateCommentResponseDto(savedComment.getCommentId(),savedComment.getUser().getUserId(),savedComment.getSchedule().getScheduleId(),savedComment.getContent(),savedComment.getCreatedAt());
+        return new CreateCommentResponseDto(savedComment.getCommentId()
+                ,savedComment.getUser().getUserId()
+                ,savedComment.getSchedule().getScheduleId()
+                ,savedComment.getContent()
+                ,savedComment.getCreatedAt());
+    }
+
+    public ReadCommentResponseDto findCommentById(Long commentId) {
+        Comment comment = commentRepository.getReferenceById(commentId);
+
+        return new ReadCommentResponseDto(comment);
+
+
     }
 }
