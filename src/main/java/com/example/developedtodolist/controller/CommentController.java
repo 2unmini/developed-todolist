@@ -3,6 +3,7 @@ package com.example.developedtodolist.controller;
 import com.example.developedtodolist.dto.comment.CreateCommentRequestDto;
 import com.example.developedtodolist.dto.comment.CreateCommentResponseDto;
 import com.example.developedtodolist.dto.comment.ReadCommentResponseDto;
+import com.example.developedtodolist.dto.comment.UpdateCommentRequestDto;
 import com.example.developedtodolist.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,12 @@ public class CommentController {
     public ResponseEntity<ReadCommentResponseDto> readComment(@PathVariable Long id) {
         ReadCommentResponseDto readCommentResponseDto = commentService.findCommentById(id);
         return new ResponseEntity<>(readCommentResponseDto,HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> updateComment(@PathVariable Long id ,@RequestBody UpdateCommentRequestDto requestDto ) {
+        commentService.updateCommentById(id,requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

@@ -2,6 +2,7 @@ package com.example.developedtodolist.service;
 
 import com.example.developedtodolist.dto.comment.CreateCommentResponseDto;
 import com.example.developedtodolist.dto.comment.ReadCommentResponseDto;
+import com.example.developedtodolist.dto.comment.UpdateCommentRequestDto;
 import com.example.developedtodolist.entity.Comment;
 import com.example.developedtodolist.entity.Schedule;
 import com.example.developedtodolist.entity.User;
@@ -10,6 +11,7 @@ import com.example.developedtodolist.repository.ScheduleRepository;
 import com.example.developedtodolist.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,10 +31,15 @@ public class CommentService {
     }
 
     public ReadCommentResponseDto findCommentById(Long commentId) {
-        Comment comment = commentRepository.getReferenceById(commentId);
+        Comment comment = commentRepository.findById(commentId).orElseThrow();
 
         return new ReadCommentResponseDto(comment);
 
 
+    }
+    @Transactional
+    public void updateCommentById(Long commentId, UpdateCommentRequestDto updateCommentRequestDto) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow();
+        comment.updateComment(updateCommentRequestDto.getContent());
     }
 }
