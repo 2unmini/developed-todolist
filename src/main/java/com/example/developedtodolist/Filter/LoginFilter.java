@@ -8,9 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.PatternMatchUtils;
 
 import java.io.IOException;
+
 @Slf4j
 public class LoginFilter implements Filter {
-    private static final String[] WHITE_LIST={"/","/api/users/create","/api/users/login","/api/users/logout"};
+    private static final String[] WHITE_LIST = {"/", "/api/users/create", "/api/users/login", "/api/users/logout"}; // 인증을 생각할 필요없는 경로
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
@@ -20,17 +22,17 @@ public class LoginFilter implements Filter {
 
         log.info("로그인 필터 로직 실행");
 
-        if(!isWhiteList(requestURI)) {
+        if (!isWhiteList(requestURI)) {
             HttpSession session = httpRequest.getSession(false);
-            if(session == null || session.getAttribute("loginUser")==null) {
+            if (session == null || session.getAttribute("loginUser") == null) {
                 throw new RuntimeException("로그인 해주세요");
             }
             log.info("로그인 성공");
         }
-        chain.doFilter(request,response);
+        chain.doFilter(request, response);
     }
 
     private boolean isWhiteList(String requestURI) {
-        return PatternMatchUtils.simpleMatch(WHITE_LIST,requestURI);
+        return PatternMatchUtils.simpleMatch(WHITE_LIST, requestURI);
     }
 }

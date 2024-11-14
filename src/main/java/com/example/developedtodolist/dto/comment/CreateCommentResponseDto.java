@@ -1,19 +1,17 @@
 package com.example.developedtodolist.dto.comment;
 
-import com.example.developedtodolist.entity.Schedule;
-import com.example.developedtodolist.entity.User;
-import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
-@Getter
-public class CreateCommentResponseDto {
 
-    private Long commentId;
-    private Long userId;
-    private Long scheduleId;
-    private String content;
-    private LocalDate createdAt;
+@Getter
+public class CreateCommentResponseDto { // 생성 시 반환할 dto
+
+    private Long commentId; // 댓글 고유식별자
+    private Long userId; // 유저 고유 식별자
+    private Long scheduleId; // 일정 고유 식별자
+    private String content; // 댓글
+    private LocalDate createdAt; // 생성 일시
 
     public CreateCommentResponseDto(Long commentId, Long userId, Long scheduleId, String content, LocalDate createdAt) {
         this.commentId = commentId;

@@ -19,31 +19,33 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final ScheduleRepository scheduleRepository;
-    public CreateCommentResponseDto saveComment(Long userId,Long scheduleId,String content) {
+
+    public CreateCommentResponseDto saveComment(Long userId, Long scheduleId, String content) { // 댓글 생성 로직
         User user = userRepository.findByIdOrElseThrow(userId);
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(scheduleId);
-        Comment savedComment = commentRepository.save(new Comment(user,schedule,content));
+        Comment savedComment = commentRepository.save(new Comment(user, schedule, content));
         return new CreateCommentResponseDto(savedComment.getCommentId()
-                ,savedComment.getUser().getUserId()
-                ,savedComment.getSchedule().getScheduleId()
-                ,savedComment.getContent()
-                ,savedComment.getCreatedAt());
+                , savedComment.getUser().getUserId()
+                , savedComment.getSchedule().getScheduleId()
+                , savedComment.getContent()
+                , savedComment.getCreatedAt());
     }
 
-    public ReadCommentResponseDto findCommentById(Long commentId) {
+    public ReadCommentResponseDto findCommentById(Long commentId) { // 댓글 조회 로직
         Comment comment = commentRepository.findById(commentId).orElseThrow();
 
         return new ReadCommentResponseDto(comment);
 
 
     }
+
     @Transactional
-    public void updateCommentById(Long commentId, UpdateCommentRequestDto updateCommentRequestDto) {
+    public void updateCommentById(Long commentId, UpdateCommentRequestDto updateCommentRequestDto) { // 댓글 수정 로직
         Comment comment = commentRepository.findById(commentId).orElseThrow();
         comment.updateComment(updateCommentRequestDto.getContent());
     }
 
-    public void deleteCommentById(Long id) {
+    public void deleteCommentById(Long id) { // 댓글 삭제 로직
         commentRepository.deleteById(id);
     }
 }

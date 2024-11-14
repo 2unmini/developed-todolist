@@ -13,13 +13,13 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Repository
-public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
+public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
-    default Schedule findByIdOrElseThrow(Long id){
-       return findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    default Schedule findByIdOrElseThrow(Long id) {
+        return findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @Query(value = "select *, (Select Count(content) FROM comment AS comment_count) from schedule ",nativeQuery = true)
+    @Query(value = "select *, (Select Count(content) FROM comment AS comment_count) from schedule ", nativeQuery = true)
     List<Schedule> countContent(Pageable pageable);
 
 

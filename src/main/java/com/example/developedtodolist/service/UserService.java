@@ -21,8 +21,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public UserResponseDto save(String username, String email, String password) {
-        User user = new User(username, email,passwordEncoder.encode(password));
+    public UserResponseDto save(String username, String email, String password) { // 회원가입 로직
+        User user = new User(username, email, passwordEncoder.encode(password));
         User savedUser = userRepository.save(user);
         return new UserResponseDto(
                 savedUser.getUserId()
@@ -31,13 +31,13 @@ public class UserService {
         );
     }
 
-    public List<UserResponseDto> findAll() {
+    public List<UserResponseDto> findAll() { // 전체 유저 조회 로직
         List<User> userList = userRepository.findAll();
         return userList.stream().map(UserResponseDto::toUserResponseDto).toList();
 
     }
 
-    public UserResponseDto findById(Long id) {
+    public UserResponseDto findById(Long id) { // 상세 유저 조회 로직
         User user = userRepository.findByIdOrElseThrow(id);
         return new UserResponseDto(user.getUserId()
                 , user.getUsername()
@@ -46,36 +46,24 @@ public class UserService {
 
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Long id) { //회원 삭제 로직
         userRepository.deleteById(id);
     }
 
-   /* public UserResponseDto login(String email, String password, HttpServletRequest request) {
-       *//* Long userId = userRepository.findByEmailAndPassword(email, password);
-        if (userId!=null){
-            HttpSession session = request.getSession();
-            User loginUser = userRepository.findByIdOrElseThrow(userId);
-            session.setAttribute("user_id", loginUser);
-            return new UserResponseDto(userId,email,password);
-        }
-*//*
-        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-    }*/
-
-    public boolean login(LoginUserRequestDto requestDto, HttpServletRequest request) {
+    public boolean login(LoginUserRequestDto requestDto, HttpServletRequest request) { // 로그인 로직
         User user = userRepository.findUserByEmail(requestDto.getEmail());
-        if(user.getUserId()!=null&& passwordEncoder.matches(requestDto.getPassword(),user.getPassword())){
+        if (user.getUserId() != null && passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
             HttpSession session = request.getSession();
-            session.setAttribute("loginUser",user.getUserId());
+            session.setAttribute("loginUser", user.getUserId());
             return true;
 
         }
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     }
 
-    public void logout(HttpServletRequest request) {
+    public void logout(HttpServletRequest request) { // 로그아웃 로직
         HttpSession session = request.getSession(false);
-        if(session!=null) {
+        if (session != null) {
             session.invalidate();
         }
     }

@@ -320,7 +320,7 @@
 
 ```
 {
-    "errorCode": 400,
+    "errorCode": 401,
     "message": "비밀번호가 일치 하지 않습니다."
 }
 ```
@@ -346,7 +346,7 @@
 | DELETE | /api/users/{user_id} | 사용자 정보 삭제      |
 
 
-## 필수과제 발전된 일정관리 API
+## 도전과제 발전된 일정관리 API
 
 <details>
 <summary>POST 댓글 생성</summary>

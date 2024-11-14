@@ -21,31 +21,32 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<UserResponseDto> createUser(@Validated @RequestBody SignupUserRequestDto requestDto) {
+    public ResponseEntity<UserResponseDto> createUser(@Validated @RequestBody SignupUserRequestDto requestDto) { // 회원가입 기능
         UserResponseDto savedUserResponseDto = userService.save(requestDto.getUsername(), requestDto.getEmail(), requestDto.getPassword());
         return new ResponseEntity<>(savedUserResponseDto, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDto>> findUserAll() {
+    public ResponseEntity<List<UserResponseDto>> findUserAll() { //유저 정보 조회 기능
         List<UserResponseDto> userResponseDtoList = userService.findAll();
         return new ResponseEntity<>(userResponseDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> findUserById(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDto> findUserById(@PathVariable Long id) { // 요청한 id 와 일치하는 유저 정보 조회 기능
         UserResponseDto userResponseDto = userService.findById(id);
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) { // 요청한 id 와 일치하는 유저 정보 삭제 기능
         userService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody LoginUserRequestDto requestDto, HttpServletRequest request ) {
-        if(userService.login(requestDto,request)){
+    public ResponseEntity<Void> login(@RequestBody LoginUserRequestDto requestDto, HttpServletRequest request) { // 로그인 기능
+        if (userService.login(requestDto, request)) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

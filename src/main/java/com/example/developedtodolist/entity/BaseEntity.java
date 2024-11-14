@@ -9,9 +9,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+
 @Getter
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class) // 공통으로 사용되는 등록일 수정일을 추상메소드로 생성
 public abstract class BaseEntity {
     @CreatedDate
     @Column(updatable = false)
