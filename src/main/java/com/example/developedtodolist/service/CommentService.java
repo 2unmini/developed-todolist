@@ -42,4 +42,8 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId).orElseThrow();
         comment.updateComment(updateCommentRequestDto.getContent());
     }
+
+    public void deleteCommentById(Long id) {
+        commentRepository.deleteById(id);
+    }
 }
