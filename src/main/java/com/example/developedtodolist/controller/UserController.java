@@ -1,7 +1,7 @@
 package com.example.developedtodolist.controller;
 
 import com.example.developedtodolist.dto.user.LoginUserRequestDto;
-import com.example.developedtodolist.dto.user.UserRequestDto;
+import com.example.developedtodolist.dto.user.SignupUserRequestDto;
 import com.example.developedtodolist.dto.user.UserResponseDto;
 
 import com.example.developedtodolist.service.UserService;
@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto requestDto) {
+    public ResponseEntity<UserResponseDto> createUser(@Validated @RequestBody SignupUserRequestDto requestDto) {
         UserResponseDto savedUserResponseDto = userService.save(requestDto.getUsername(), requestDto.getEmail(), requestDto.getPassword());
         return new ResponseEntity<>(savedUserResponseDto, HttpStatus.CREATED);
     }

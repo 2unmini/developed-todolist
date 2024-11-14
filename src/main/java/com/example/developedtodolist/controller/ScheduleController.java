@@ -2,6 +2,7 @@ package com.example.developedtodolist.controller;
 
 import com.example.developedtodolist.dto.scheduledto.ScheduleRequestDto;
 import com.example.developedtodolist.dto.scheduledto.ScheduleResponseDto;
+import com.example.developedtodolist.dto.scheduledto.UpdateScheduleRequestDto;
 import com.example.developedtodolist.entity.Schedule;
 import com.example.developedtodolist.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +38,8 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleResponseDto,HttpStatus.OK);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateSchedule(@PathVariable Long id,@RequestBody ScheduleRequestDto requestDto) {
-        scheduleService.updateSchedule(id,requestDto.getUserId(),requestDto.getContent(),requestDto.getContent());
+    public ResponseEntity<Void> updateSchedule(@PathVariable Long id,@RequestBody UpdateScheduleRequestDto requestDto) {
+        scheduleService.updateSchedule(id,requestDto.getTitle(),requestDto.getContent());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
