@@ -1,12 +1,19 @@
 package com.example.developedtodolist.service;
 
+import com.example.developedtodolist.dto.scheduledto.PageScheduleResponseDto;
 import com.example.developedtodolist.dto.scheduledto.ScheduleResponseDto;
+import com.example.developedtodolist.entity.Comment;
 import com.example.developedtodolist.entity.Schedule;
 import com.example.developedtodolist.entity.User;
+import com.example.developedtodolist.repository.CommentRepository;
 import com.example.developedtodolist.repository.ScheduleRepository;
 import com.example.developedtodolist.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -18,6 +25,7 @@ import java.util.List;
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
     public ScheduleResponseDto savedSchedule(Long userId,String title, String content) {
         User user = userRepository.findByIdOrElseThrow(userId);
         Schedule schedule = new Schedule(user ,title, content);
@@ -51,4 +59,16 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
         scheduleRepository.delete(schedule);
     }
+
+    public List<PageScheduleResponseDto> findByPage(Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page-1, pageSize, Sort.by("updated_at").descending());
+        List<Schedule> scheduleList = scheduleRepository.countContent(pageable);
+        /*
+        todo
+         */
+
+        return scheduleList.stream().map(PageScheduleResponseDto::topageScheduleResponsedto).toList();
+    }
+
+
 }

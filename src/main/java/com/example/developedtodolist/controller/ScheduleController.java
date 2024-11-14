@@ -1,11 +1,13 @@
 package com.example.developedtodolist.controller;
 
+import com.example.developedtodolist.dto.scheduledto.PageScheduleResponseDto;
 import com.example.developedtodolist.dto.scheduledto.ScheduleRequestDto;
 import com.example.developedtodolist.dto.scheduledto.ScheduleResponseDto;
 import com.example.developedtodolist.dto.scheduledto.UpdateScheduleRequestDto;
 import com.example.developedtodolist.entity.Schedule;
 import com.example.developedtodolist.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +49,11 @@ public class ScheduleController {
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteSchedule(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/page")
+    public ResponseEntity<List<PageScheduleResponseDto>> pagingSchedule(@RequestParam Integer page, @RequestParam (defaultValue = "10") Integer pageSize) {
+        List<PageScheduleResponseDto> pageScheduleList = scheduleService.findByPage(page, pageSize);
+        return new ResponseEntity<>(pageScheduleList,HttpStatus.OK);
     }
 
 

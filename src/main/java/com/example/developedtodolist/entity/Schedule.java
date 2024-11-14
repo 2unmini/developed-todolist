@@ -2,6 +2,9 @@ package com.example.developedtodolist.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.Formula;
+
+import java.util.List;
 
 @Getter
 @Entity
@@ -15,6 +18,11 @@ public class Schedule extends BaseEntity{
     private  User user;
     private  String title;
     private  String content;
+
+
+
+    @Column(name = "comment_count")
+    private Long commentCount;
 
     public Schedule() {
 
@@ -31,6 +39,14 @@ public class Schedule extends BaseEntity{
         this.title=title;
         this.content=content;
 
+    }
+
+    public Schedule(Long scheduleId, User user, String title, String content, Long commentCount) {
+        this.scheduleId = scheduleId;
+        this.user = user;
+        this.title = title;
+        this.content = content;
+        this.commentCount = commentCount;
     }
 
 
