@@ -1,7 +1,8 @@
 package com.example.developedtodolist.service;
 
+import com.example.developedtodolist.dto.scheduledto.CreateScheduleResponseDto;
 import com.example.developedtodolist.dto.scheduledto.PageScheduleResponseDto;
-import com.example.developedtodolist.dto.scheduledto.ScheduleResponseDto;
+import com.example.developedtodolist.dto.scheduledto.ReadScheduleResponseDto;
 import com.example.developedtodolist.entity.Schedule;
 import com.example.developedtodolist.entity.User;
 import com.example.developedtodolist.repository.CommentRepository;
@@ -25,27 +26,28 @@ public class ScheduleService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
-    public ScheduleResponseDto savedSchedule(Long userId, String title, String content) { // 일정 생성 로직
+    public CreateScheduleResponseDto savedSchedule(Long userId, String title, String content) { // 일정 생성 로직
         User user = userRepository.findByIdOrElseThrow(userId);
         Schedule schedule = new Schedule(user, title, content);
         Schedule savedSchedule = scheduleRepository.save(schedule);
-        return new ScheduleResponseDto(
+        return new CreateScheduleResponseDto(
                 savedSchedule.getScheduleId(),
                 savedSchedule.getUser().getUserId()
                 , savedSchedule.getTitle()
                 , savedSchedule.getContent()
+                , savedSchedule.getCreatedAt()
         );
     }
 
-    public List<ScheduleResponseDto> findAll() {
+    public List<ReadScheduleResponseDto> findAll() {
         List<Schedule> scheduleList = scheduleRepository.findAll(); // 전체 일정 정보 조회 로직
-        return scheduleList.stream().map(ScheduleResponseDto::toScheduleResponseDto).toList();
+        return scheduleList.stream().map(ReadScheduleResponseDto::toScheduleResponseDto).toList();
 
     }
 
-    public ScheduleResponseDto findById(Long id) { // 상세 일정 조회 로직
+    public ReadScheduleResponseDto findById(Long id) { // 상세 일정 조회 로직
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
-        return ScheduleResponseDto.toScheduleResponseDto(schedule);
+        return ReadScheduleResponseDto.toScheduleResponseDto(schedule);
 
     }
 

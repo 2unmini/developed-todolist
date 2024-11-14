@@ -1,8 +1,9 @@
 package com.example.developedtodolist.service;
 
 import com.example.developedtodolist.config.PasswordEncoder;
+import com.example.developedtodolist.dto.user.CreateUserResponseDto;
 import com.example.developedtodolist.dto.user.LoginUserRequestDto;
-import com.example.developedtodolist.dto.user.UserResponseDto;
+import com.example.developedtodolist.dto.user.ReadUserResponseDto;
 import com.example.developedtodolist.entity.User;
 import com.example.developedtodolist.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,27 +22,30 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public UserResponseDto save(String username, String email, String password) { // 회원가입 로직
+    public CreateUserResponseDto save(String username, String email, String password) { // 회원가입 로직
         User user = new User(username, email, passwordEncoder.encode(password));
         User savedUser = userRepository.save(user);
-        return new UserResponseDto(
+        return new CreateUserResponseDto(
                 savedUser.getUserId()
                 , savedUser.getUsername()
                 , savedUser.getEmail()
+                , savedUser.getCreatedAt()
         );
     }
 
-    public List<UserResponseDto> findAll() { // 전체 유저 조회 로직
+    public List<ReadUserResponseDto> findAll() { // 전체 유저 조회 로직
         List<User> userList = userRepository.findAll();
-        return userList.stream().map(UserResponseDto::toUserResponseDto).toList();
+        return userList.stream().map(ReadUserResponseDto::toUserResponseDto).toList();
 
     }
 
-    public UserResponseDto findById(Long id) { // 상세 유저 조회 로직
+    public ReadUserResponseDto findById(Long id) { // 상세 유저 조회 로직
         User user = userRepository.findByIdOrElseThrow(id);
-        return new UserResponseDto(user.getUserId()
+        return new ReadUserResponseDto(user.getUserId()
                 , user.getUsername()
                 , user.getEmail()
+                ,user.getCreatedAt()
+                ,user.getUpdatedAt()
         );
 
     }

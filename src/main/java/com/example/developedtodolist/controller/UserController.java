@@ -1,8 +1,9 @@
 package com.example.developedtodolist.controller;
 
+import com.example.developedtodolist.dto.user.CreateUserResponseDto;
 import com.example.developedtodolist.dto.user.LoginUserRequestDto;
 import com.example.developedtodolist.dto.user.SignupUserRequestDto;
-import com.example.developedtodolist.dto.user.UserResponseDto;
+import com.example.developedtodolist.dto.user.ReadUserResponseDto;
 
 import com.example.developedtodolist.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,21 +22,21 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<UserResponseDto> createUser(@Validated @RequestBody SignupUserRequestDto requestDto) { // 회원가입 기능
-        UserResponseDto savedUserResponseDto = userService.save(requestDto.getUsername(), requestDto.getEmail(), requestDto.getPassword());
+    public ResponseEntity<CreateUserResponseDto> createUser(@Validated @RequestBody SignupUserRequestDto requestDto) { // 회원가입 기능
+        CreateUserResponseDto savedUserResponseDto = userService.save(requestDto.getUsername(), requestDto.getEmail(), requestDto.getPassword());
         return new ResponseEntity<>(savedUserResponseDto, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDto>> findUserAll() { //유저 정보 조회 기능
-        List<UserResponseDto> userResponseDtoList = userService.findAll();
-        return new ResponseEntity<>(userResponseDtoList, HttpStatus.OK);
+    public ResponseEntity<List<ReadUserResponseDto>> findUserAll() { //유저 정보 조회 기능
+        List<ReadUserResponseDto> readUserResponseDtoList = userService.findAll();
+        return new ResponseEntity<>(readUserResponseDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> findUserById(@PathVariable Long id) { // 요청한 id 와 일치하는 유저 정보 조회 기능
-        UserResponseDto userResponseDto = userService.findById(id);
-        return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
+    public ResponseEntity<ReadUserResponseDto> findUserById(@PathVariable Long id) { // 요청한 id 와 일치하는 유저 정보 조회 기능
+        ReadUserResponseDto readUserResponseDto = userService.findById(id);
+        return new ResponseEntity<>(readUserResponseDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

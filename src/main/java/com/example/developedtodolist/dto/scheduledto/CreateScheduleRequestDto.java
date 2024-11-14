@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class ScheduleRequestDto {
+public class CreateScheduleRequestDto {
     @NotNull(message = "제목을 입력해주세요") //필수 값
     private String title; // 제목
     @NotNull(message = "내용을 입력해주세요") // 필수 값

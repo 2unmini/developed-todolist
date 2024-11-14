@@ -1,9 +1,6 @@
 package com.example.developedtodolist.controller;
 
-import com.example.developedtodolist.dto.scheduledto.PageScheduleResponseDto;
-import com.example.developedtodolist.dto.scheduledto.ScheduleRequestDto;
-import com.example.developedtodolist.dto.scheduledto.ScheduleResponseDto;
-import com.example.developedtodolist.dto.scheduledto.UpdateScheduleRequestDto;
+import com.example.developedtodolist.dto.scheduledto.*;
 import com.example.developedtodolist.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,23 +17,23 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping("/{user_id}")
-    public ResponseEntity<ScheduleResponseDto> createSchedule(@PathVariable Long user_id, @RequestBody ScheduleRequestDto requestDto) { // 일정 생성 기능
+    public ResponseEntity<CreateScheduleResponseDto> createSchedule(@PathVariable Long user_id, @RequestBody CreateScheduleRequestDto requestDto) { // 일정 생성 기능
 
-        ScheduleResponseDto scheduleResponseDto = scheduleService.savedSchedule(user_id, requestDto.getTitle(), requestDto.getContent());
+        CreateScheduleResponseDto scheduleResponseDto = scheduleService.savedSchedule(user_id, requestDto.getTitle(), requestDto.getContent());
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
 
     }
 
     @GetMapping
-    public ResponseEntity<List<ScheduleResponseDto>> findScheduleAll() { // 전체 일정 조회 기능
-        List<ScheduleResponseDto> list = scheduleService.findAll();
+    public ResponseEntity<List<ReadScheduleResponseDto>> findScheduleAll() { // 전체 일정 조회 기능
+        List<ReadScheduleResponseDto> list = scheduleService.findAll();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id) { // 상세 일정 조회 기능
-        ScheduleResponseDto scheduleResponseDto = scheduleService.findById(id);
-        return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
+    public ResponseEntity<ReadScheduleResponseDto> findScheduleById(@PathVariable Long id) { // 상세 일정 조회 기능
+        ReadScheduleResponseDto readScheduleResponseDto = scheduleService.findById(id);
+        return new ResponseEntity<>(readScheduleResponseDto, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
