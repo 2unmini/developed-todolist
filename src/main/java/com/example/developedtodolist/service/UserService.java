@@ -3,8 +3,12 @@ package com.example.developedtodolist.service;
 import com.example.developedtodolist.dto.user.UserResponseDto;
 import com.example.developedtodolist.entity.User;
 import com.example.developedtodolist.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -13,8 +17,8 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserResponseDto save(String username, String email) {
-        User user = new User(username, email);
+    public UserResponseDto save(String username, String email, String password) {
+        User user = new User(username, email,password);
         User savedUser = userRepository.save(user);
         return new UserResponseDto(
                 savedUser.getUserId()
@@ -36,5 +40,21 @@ public class UserService {
                 , user.getEmail()
         );
 
+    }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public UserResponseDto login(String email, String password, HttpServletRequest request) {
+        Long userId = userRepository.findByEmailAndPassword(email, password);
+        if (userId!=null){
+            HttpSession session = request.getSession();
+            User loginUser = userRepository.findByIdOrElseThrow(userId);
+            session.setAttribute("user_id", loginUser);
+            return new UserResponseDto(userId,email,password);
+        }
+
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     }
 }

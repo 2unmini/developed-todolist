@@ -13,36 +13,36 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/schedules")
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    @PostMapping("/schedules")
-    public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
+    @PostMapping("/{user_id}")
+    public ResponseEntity<ScheduleResponseDto> createSchedule(@PathVariable Long user_id ,@RequestBody ScheduleRequestDto requestDto) {
 
-        ScheduleResponseDto scheduleResponseDto = scheduleService.savedSchedule(requestDto.getUserId(), requestDto.getTitle(), requestDto.getContent());
+        ScheduleResponseDto scheduleResponseDto = scheduleService.savedSchedule(user_id, requestDto.getTitle(), requestDto.getContent());
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
 
     }
-    @GetMapping("/schedules")
+    @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> findScheduleAll() {
         List<ScheduleResponseDto> list =scheduleService.findAll();
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
-    @GetMapping("/schedules/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id) {
         ScheduleResponseDto scheduleResponseDto = scheduleService.findById(id);
         return new ResponseEntity<>(scheduleResponseDto,HttpStatus.OK);
     }
-    @PutMapping("/schedules/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Void> updateSchedule(@PathVariable Long id,@RequestBody ScheduleRequestDto requestDto) {
         scheduleService.updateSchedule(id,requestDto.getUserId(),requestDto.getContent(),requestDto.getContent());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @DeleteMapping("/schedules/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteSchedule(id);
         return new ResponseEntity<>(HttpStatus.OK);
