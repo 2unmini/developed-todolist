@@ -44,8 +44,8 @@ public class UserService {
         return new ReadUserResponseDto(user.getUserId()
                 , user.getUsername()
                 , user.getEmail()
-                ,user.getCreatedAt()
-                ,user.getUpdatedAt()
+                , user.getCreatedAt()
+                , user.getUpdatedAt()
         );
 
     }

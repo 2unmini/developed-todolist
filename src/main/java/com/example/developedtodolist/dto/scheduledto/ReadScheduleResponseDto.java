@@ -17,17 +17,16 @@ public class ReadScheduleResponseDto {
     private LocalDate updatedAt; // 일정 수정일시
 
 
-
-    public ReadScheduleResponseDto(Long scheduleId, Long userId, String title, String content ,LocalDate createdAt ,LocalDate updatedAt) {
+    public ReadScheduleResponseDto(Long scheduleId, Long userId, String title, String content, LocalDate createdAt, LocalDate updatedAt) {
         this.scheduleId = scheduleId;
         this.userId = userId;
         this.title = title;
         this.content = content;
-        this.createdAt=createdAt;
-        this.updatedAt=updatedAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public static ReadScheduleResponseDto toScheduleResponseDto(Schedule schedule) {
-        return new ReadScheduleResponseDto(schedule.getScheduleId(), schedule.getUser().getUserId(), schedule.getTitle(), schedule.getContent(),schedule.getCreatedAt(),schedule.getUpdatedAt());
+        return new ReadScheduleResponseDto(schedule.getScheduleId(), schedule.getUser().getUserId(), schedule.getTitle(), schedule.getContent(), schedule.getCreatedAt(), schedule.getUpdatedAt());
     }
 }

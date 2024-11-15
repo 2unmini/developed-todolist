@@ -19,20 +19,20 @@ public class ReadUserResponseDto {
         this.userId = userId;
         this.username = username;
         this.email = email;
-        this.createdAt=createdAt;
-        this.updatedAt=updatedAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public ReadUserResponseDto(Long userId, String username, String email,LocalDate createdAt, LocalDate updatedAt) {
+    public ReadUserResponseDto(Long userId, String username, String email, LocalDate createdAt, LocalDate updatedAt) {
         this.userId = userId;
         this.username = username;
         this.email = email;
-        this.createdAt=createdAt;
-        this.updatedAt=updatedAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public static ReadUserResponseDto toUserResponseDto(User user) {
-        return new ReadUserResponseDto(user.getUserId(), user.getUsername(), user.getEmail(), user.getPassword(),user.getCreatedAt(),user.getUpdatedAt());
+        return new ReadUserResponseDto(user.getUserId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getCreatedAt(), user.getUpdatedAt());
     }
 
 }

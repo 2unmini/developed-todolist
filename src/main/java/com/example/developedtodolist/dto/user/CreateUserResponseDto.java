@@ -12,10 +12,10 @@ public class CreateUserResponseDto {
     private LocalDate createdAt; // 유저 생성일시
 
 
-    public CreateUserResponseDto(Long userId, String username, String email,LocalDate createdAt) {
+    public CreateUserResponseDto(Long userId, String username, String email, LocalDate createdAt) {
         this.userId = userId;
         this.username = username;
         this.email = email;
-        this.createdAt=createdAt;
+        this.createdAt = createdAt;
     }
 }

@@ -10,7 +10,7 @@ public class UpdateScheduleRequestDto {
     @NotNull(message = "내용을 입력해주세요") // 필수 값
     private String content; // 내용
 
-    public UpdateScheduleRequestDto( String title, String content) {
+    public UpdateScheduleRequestDto(String title, String content) {
         this.title = title;
         this.content = content;
     }
