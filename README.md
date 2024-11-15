@@ -339,11 +339,14 @@
 
 사용자 API
 
-| Method | EndPoint                 | Desc           |
-|--------|--------------------------|----------------|
-| POST   | /api/users               | 새로운 사용자 생성     |
-| GET    | /api/users/{user_id}     | 상세 사용자 정보를 가져옴 |
+| Method | EndPoint             | Desc           |
+|--------|----------------------|----------------|
+| POST   | /api/users           | 새로운 사용자 생성     |
+| GET    | /api/users/{user_id} | 상세 사용자 정보를 가져옴 |
 | DELETE | /api/users/{user_id} | 사용자 정보 삭제      |
+| POST   | /api/users/login     | 로그인            |
+| DELETE | /api/users/logout    | 로그아웃           |
+
 
 
 ## 도전과제 발전된 일정관리 API
@@ -552,6 +555,22 @@
 ```
 </div>
 </details>
+
+일정 페이지네이션 API
+
+| Method | EndPoint                                           | Desc           |
+|--------|----------------------------------------------------|----------------|
+| GET    | /api/schedules/page? page=page & pagesize=pagesize | 상세 사용자 정보를 가져옴 |
+
+
+댓글 API
+
+| Method | EndPoint                   | Desc          |
+|--------|----------------------------|---------------|
+| POST   | /api/comments              | 새로운 댓글 생성     |
+| GET    | /api/comments/{comment_Id} | 상세 댓글 정보를 가져옴 |
+| PATCH  | /api/comments/{comment_Id}      | 댓글 수정         |
+| DELETE | /api/comments/{comment_Id}    | 댓글 삭제         |
 
 
 
