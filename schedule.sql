@@ -64,3 +64,9 @@ DELETE
 FROM user
     WHERE schdule_id= 고유번호;
 
+수정일시 별 내림차순으로 scheduleTABLE에 s.schedule_id, s.user_id, s.title, s.content, s.created_at, s.updated_at,
+    댓글의 스케줄아이디와 스케줄의 스케줄아이디가 같은 content의 합을 조회하는 쿼리
+select s.schedule_id, s.user_id, s.title, s.content, s.created_at, s.updated_at,
+       (SELECT COUNT(content) FROM comment c WHERE c.schedule_id = s.schedule_id) AS comment_count
+FROM schedule s ORDER BY s.updated_at DESC;
+

@@ -503,6 +503,56 @@
 </div>
 </details>
 
+<details>
+<summary>GET 페이지네이션 일정 조회</summary>
+<div markdown="1">       
+
+/api/schedules
+- Requset
+
+    ```
+  api/schedules/page?page=페이지 번호 & pagesize=한 페이지당크기
+  ```
+  
+|파라미터| 타입   |필수여부| 설명       |
+|------|------|------|----------|
+|page | INT  |O     | 페이지 번호   |
+| pagesize  | INT |O     | 한 페이지당크기 |
+
+- Example response
+
+| 파라미터         | 타입     | 필수여부 | 설명     |
+|--------------|--------|------|--------|
+| title        | Long   | O    | 제목     |
+| username     | String | O    | 작성자 이름 |
+| content      | String | O    | 내용     |
+| commentCount | INT    | O    | 댓글 수   |
+| created_At   | Date   | O    | 생성 날짜  |
+| updated_At   | Date   | O    | 수정 날짜  |
+
+  ```json
+ [ 
+  {
+      "title": "제목",
+      "username": "이름",
+      "content" : "내용",
+      "commentCount": 12,
+      "created_At": "2024-11-12",
+      "updated_At": "2024-11-13"
+    },
+  {
+    "title": "제목",
+    "username": "이름",
+    "content" : "내용",
+    "commentCount": 12,
+    "created_At": "2024-11-12",
+    "updated_At": "2024-11-12"
+  }
+]
+```
+</div>
+</details>
+
 
 
 ## 필수과제 발전된 일정관리 ERD
