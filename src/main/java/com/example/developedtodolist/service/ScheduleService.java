@@ -60,13 +60,13 @@ public class ScheduleService {
     }
 
     public List<PageScheduleResponseDto> findByPage(Integer page, Integer pageSize) { // 페이지별 조회 로직
-        Pageable pageable = PageRequest.of(page - 1, pageSize, Sort.by("updated_at").descending());
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
         List<Schedule> scheduleList = scheduleRepository.countContent(pageable);
-        /*
-        todo
-         */
+
 
         return scheduleList.stream().map(PageScheduleResponseDto::topageScheduleResponsedto).toList(); // ResponseDto 형태의 리스트로 변환후 리턴
+
     }
+
 
 }
