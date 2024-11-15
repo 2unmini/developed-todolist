@@ -5,6 +5,7 @@ import com.example.developedtodolist.dto.user.CreateUserResponseDto;
 import com.example.developedtodolist.dto.user.LoginUserRequestDto;
 import com.example.developedtodolist.dto.user.ReadUserResponseDto;
 import com.example.developedtodolist.entity.User;
+import com.example.developedtodolist.exception.MismatchPasswordException;
 import com.example.developedtodolist.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -62,7 +63,7 @@ public class UserService {
             return true;
 
         }
-        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        throw new MismatchPasswordException();
     }
 
     public void logout(HttpServletRequest request) { // 로그아웃 로직

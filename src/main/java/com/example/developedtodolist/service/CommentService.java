@@ -6,6 +6,7 @@ import com.example.developedtodolist.dto.comment.UpdateCommentRequestDto;
 import com.example.developedtodolist.entity.Comment;
 import com.example.developedtodolist.entity.Schedule;
 import com.example.developedtodolist.entity.User;
+import com.example.developedtodolist.exception.NoInformationException;
 import com.example.developedtodolist.repository.CommentRepository;
 import com.example.developedtodolist.repository.ScheduleRepository;
 import com.example.developedtodolist.repository.UserRepository;
@@ -32,7 +33,7 @@ public class CommentService {
     }
 
     public ReadCommentResponseDto findCommentById(Long commentId) { // 댓글 조회 로직
-        Comment comment = commentRepository.findById(commentId).orElseThrow();
+        Comment comment = commentRepository.findById(commentId).orElseThrow(NoInformationException::new);
 
         return new ReadCommentResponseDto(comment);
 
@@ -41,7 +42,7 @@ public class CommentService {
 
     @Transactional
     public void updateCommentById(Long commentId, UpdateCommentRequestDto updateCommentRequestDto) { // 댓글 수정 로직
-        Comment comment = commentRepository.findById(commentId).orElseThrow();
+        Comment comment = commentRepository.findById(commentId).orElseThrow(NoInformationException::new);
         comment.updateComment(updateCommentRequestDto.getContent());
     }
 
