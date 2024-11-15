@@ -1,8 +1,6 @@
 package com.example.developedtodolist.repository;
 
-import com.example.developedtodolist.dto.scheduledto.PageScheduleResponseDto;
 import com.example.developedtodolist.entity.Schedule;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,7 +17,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
         return findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @Query(value = "select *, (Select Count(content) FROM comment AS comment_count) from schedule ", nativeQuery = true)
+    @Query(value = "select s.schedule_id, s.user_id, s.title, s.content, s.created_at, s.updated_at, (SELECT COUNT(content) FROM comment c WHERE c.schedule_id = s.schedule_id) AS comment_count FROM schedule s ORDER BY s.updated_at DESC;", nativeQuery = true)
     List<Schedule> countContent(Pageable pageable);
 
 

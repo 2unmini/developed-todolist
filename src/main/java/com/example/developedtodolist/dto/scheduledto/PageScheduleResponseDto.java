@@ -23,7 +23,6 @@ public class PageScheduleResponseDto { // 페이징 조회 조회시 반환할 d
         this.updatedAt = updatedAt;
     }
 
-
     public static PageScheduleResponseDto topageScheduleResponsedto(Schedule schedule) { // 엔티티를 응답할 dto로 변환하는 기능
         return new PageScheduleResponseDto(
                 schedule.getTitle()

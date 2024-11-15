@@ -5,14 +5,12 @@ import com.example.developedtodolist.dto.scheduledto.PageScheduleResponseDto;
 import com.example.developedtodolist.dto.scheduledto.ReadScheduleResponseDto;
 import com.example.developedtodolist.entity.Schedule;
 import com.example.developedtodolist.entity.User;
-import com.example.developedtodolist.repository.CommentRepository;
 import com.example.developedtodolist.repository.ScheduleRepository;
 import com.example.developedtodolist.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -24,7 +22,6 @@ import java.util.List;
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
-    private final CommentRepository commentRepository;
 
     public CreateScheduleResponseDto savedSchedule(Long userId, String title, String content) { // 일정 생성 로직
         User user = userRepository.findByIdOrElseThrow(userId);
@@ -71,6 +68,5 @@ public class ScheduleService {
 
         return scheduleList.stream().map(PageScheduleResponseDto::topageScheduleResponsedto).toList(); // ResponseDto 형태의 리스트로 변환후 리턴
     }
-
 
 }
