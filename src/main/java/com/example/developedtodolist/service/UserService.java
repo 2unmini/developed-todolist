@@ -52,7 +52,8 @@ public class UserService {
     }
 
     public void deleteById(Long id) { //회원 삭제 로직
-        userRepository.deleteById(id);
+        User user = userRepository.findByIdOrElseThrow(id);
+        userRepository.delete(user);
     }
 
     public boolean login(LoginUserRequestDto requestDto, HttpServletRequest request) { // 로그인 로직

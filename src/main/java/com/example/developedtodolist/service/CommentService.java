@@ -47,6 +47,7 @@ public class CommentService {
     }
 
     public void deleteCommentById(Long id) { // 댓글 삭제 로직
-        commentRepository.deleteById(id);
+        Comment comment = commentRepository.findByIdOrElseThrow(id);
+        commentRepository.delete(comment);
     }
 }
