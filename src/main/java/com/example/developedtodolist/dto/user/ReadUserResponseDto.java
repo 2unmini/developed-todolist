@@ -15,14 +15,6 @@ public class ReadUserResponseDto {
     private LocalDate updatedAt; // 유저 수정일시
 
 
-    public ReadUserResponseDto(Long userId, String username, String email, String password, LocalDate createdAt, LocalDate updatedAt) {
-        this.userId = userId;
-        this.username = username;
-        this.email = email;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
     public ReadUserResponseDto(Long userId, String username, String email, LocalDate createdAt, LocalDate updatedAt) {
         this.userId = userId;
         this.username = username;
@@ -32,7 +24,7 @@ public class ReadUserResponseDto {
     }
 
     public static ReadUserResponseDto toUserResponseDto(User user) {
-        return new ReadUserResponseDto(user.getUserId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getCreatedAt(), user.getUpdatedAt());
+        return new ReadUserResponseDto(user.getUserId(), user.getUsername(), user.getEmail(), user.getCreatedAt(), user.getUpdatedAt());
     }
 
 }

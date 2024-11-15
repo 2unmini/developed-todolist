@@ -2,7 +2,7 @@ package com.example.developedtodolist.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class MismatchPasswordException extends CustomException{
+public class MismatchPasswordException extends CustomException {
     public int getStatusCode() {
         return HttpStatus.UNAUTHORIZED.value();
     }
